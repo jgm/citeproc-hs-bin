@@ -88,7 +88,7 @@ instance JSON CiteprocResult where
   showJSON res = JSObject $
                  toJSObject [("citations", showJSON $ cites res)
                             ,("bibliography", showJSON $ bib res)
-                            ,("type", showJSON $ citationType res)
+                            ,("citation_type", showJSON $ citationType res)
                             ]
   readJSON = fromJSON
 

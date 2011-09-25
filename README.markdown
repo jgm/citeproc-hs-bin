@@ -52,11 +52,11 @@ The output is a JSON object with three fields:
 - `bibliography` is a JSON array consisting of a list of bibliographic items.
   Each item is a JSON array representing formatted text as described above.
 
-- `type` is a string, either `in-text` or `notes`.
+- `citation_type` is a string, either `in-text` or `notes`.
 
 Sample output:
 
-    {"citations":[["(Doe 2005 test; Doe 2006, 15et ",["EMPH",["passim"]],")"],["Doe and Roe(2007)"]],"bibliography":[["Doe, John. 2005. ",["EMPH",["First Book"]],". Cambridge: Cambridge University Press."],["———. 2006. Article. ",["EMPH",["Journal of Generic Studies"]]," ","6: 33-34."],["Doe, John, and Jenny Roe. 2007. Why Water Is Wet. In ",["EMPH",["Third Book"]],", ed. Sam Smith. Oxford: Oxford University Press."]]}
+    {"citations":[["(Doe 2005 test; Doe 2006, 15et ",["EMPH",["passim"]],")"],["Doe and Roe(2007)"]],"bibliography":[["Doe, John. 2005. ",["EMPH",["First Book"]],". Cambridge: Cambridge University Press."],["———. 2006. Article. ",["EMPH",["Journal of Generic Studies"]]," ","6: 33-34."],["Doe, John, and Jenny Roe. 2007. Why Water Is Wet. In ",["EMPH",["Third Book"]],", ed. Sam Smith. Oxford: Oxford University Press."]],"citation_type":"in-text"}
 
 ## Installing citeproc
 
