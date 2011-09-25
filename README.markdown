@@ -42,7 +42,7 @@ Note that `prefix` and `suffix` can be either plain strings or formatting text--
 array consisting of plain strings or arrays in which the first string is a formatting
 instruction:  `EMPH`, `STRONG`, `SMALLCAPS`, `STRIKEOUT`, `SUPERSCRIPT`, `SUBSCRIPT`.
 
-## OUtput
+## Output
 
 The output is a JSON object with two fields:
 
