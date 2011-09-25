@@ -81,12 +81,15 @@ instance JSON Inline where
 
 data CiteprocResult = CiteprocResult { cites  :: [[Inline]]
                                      , bib    :: [[Inline]]
+                                     , citationType :: String
                                      } deriving (Show, Typeable, Data)
 
 instance JSON CiteprocResult where
   showJSON res = JSObject $
                  toJSObject [("citations", showJSON $ cites res)
-                            ,("bibliography", showJSON $ bib res)]
+                            ,("bibliography", showJSON $ bib res)
+                            ,("type", showJSON $ citationType res)
+                            ]
   readJSON = fromJSON
 
 normalize :: [Inline] -> [Inline]
@@ -107,12 +110,16 @@ main = do
     exitWith (ExitFailure 1)
   let (cslfile : bibfiles) = args
   sty <- readCSLFile cslfile
+  let citationType = styleClass sty  -- "note" or "in-text"
   refs <- concat `fmap` mapM readBiblioFile bibfiles
   res <- decode `fmap` getContents
   let Ok cites' = res
   -- for debugging:
   -- hPutStrLn stderr $ show cites'
   let bibdata = citeproc procOpts sty refs cites'
-  let citeprocres = CiteprocResult (map (normalize . renderPandoc sty) $ citations bibdata)
-                        (map (normalize . renderPandoc sty) $ bibliography bibdata)
+  let citeprocres = CiteprocResult {
+                          cites = map (normalize . renderPandoc sty) $ citations bibdata
+                        , bib   = map (normalize . renderPandoc sty) $ bibliography bibdata
+                        , citationType = citationType
+                        }
   putStrLn $ encode citeprocres
