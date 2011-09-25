@@ -44,13 +44,15 @@ instruction:  `EMPH`, `STRONG`, `SMALLCAPS`, `STRIKEOUT`, `SUPERSCRIPT`, `SUBSCR
 
 ## Output
 
-The output is a JSON object with two fields:
+The output is a JSON object with three fields:
 
 - `citations` is a JSON array consisting of a list of citations. Each citation is
   a JSON array representing formatted text as described above.
 
 - `bibliography` is a JSON array consisting of a list of bibliographic items.
   Each item is a JSON array representing formatted text as described above.
+
+- `type` is a string, either `in-text` or `notes`.
 
 Sample output:
 
