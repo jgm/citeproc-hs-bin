@@ -65,6 +65,7 @@ instance JSON Inline where
   showJSON (EmDash) = jsString "—"
   showJSON (EnDash) = jsString "–"
   showJSON (Ellipses) = jsString "…"
+  showJSON (Note [Plain ils]) | xs <- showJSON ils = JSArray [jsString "NOTE", xs]
   showJSON x = error ("Need showJSON instance for: " ++ show x)
   readJSON (JSArray (JSString ty : xs)) =
     case fromJSString ty of
@@ -81,14 +82,12 @@ instance JSON Inline where
 
 data CiteprocResult = CiteprocResult { cites  :: [[Inline]]
                                      , bib    :: [[Inline]]
-                                     , citationType :: String
                                      } deriving (Show, Typeable, Data)
 
 instance JSON CiteprocResult where
   showJSON res = JSObject $
                  toJSObject [("citations", showJSON $ cites res)
                             ,("bibliography", showJSON $ bib res)
-                            ,("citation_type", showJSON $ citationType res)
                             ]
   readJSON = fromJSON
 
@@ -104,8 +103,14 @@ consolidateInlines [] = []
 formatCitation :: Style -> [Cite] -> [FormattedOutput] -> [Inline]
 formatCitation sty (c:cs) (x:xs) = normalize inlines
   where inlines = if (authorInText c) && not (null xs)
-                     then renderPandoc sty [x] ++ [Space] ++ renderPandoc sty xs
-                     else renderPandoc sty (x:xs)
+                     then renderPandoc sty [x] ++
+                          if noteCitation
+                             then [Note [Plain $ renderPandoc sty xs]]
+                             else [Space] ++ renderPandoc sty xs
+                     else if noteCitation
+                             then [Note [Plain $ renderPandoc sty (x:xs)]]
+                             else renderPandoc sty (x:xs)
+        noteCitation = styleClass sty == "note"
 formatCitation _ _ _ = error "formatCitation: empty citation list"
 
 main :: IO ()
@@ -117,17 +122,15 @@ main = do
     exitWith (ExitFailure 1)
   let (cslfile : bibfiles) = args
   sty <- readCSLFile cslfile
-  let citationType = styleClass sty  -- "note" or "in-text"
   refs <- concat `fmap` mapM readBiblioFile bibfiles
   res <- decode `fmap` getContents
   let Ok cites' = res
   -- for debugging:
   -- hPutStrLn stderr $ show cites'
   let bibdata = citeproc procOpts sty refs cites'
-  hPutStrLn stderr $ show bibdata
+  -- hPutStrLn stderr $ show bibdata
   let citeprocres = CiteprocResult {
                           cites = zipWith (formatCitation sty) cites' $ citations bibdata
                         , bib   = map (normalize . renderPandoc sty) $ bibliography bibdata
-                        , citationType = citationType
                         }
   putStrLn $ encode citeprocres

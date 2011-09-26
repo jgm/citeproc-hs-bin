@@ -25,7 +25,7 @@ local cites =
 }
 
 local jsoncites = json.encode(cites)
-local jsonout = pipe("./citeproc chicago-author-date.csl biblio.bib", jsoncites)
+local jsonout = pipe("./citeproc mhra.csl biblio.bib", jsoncites)
 local out = json.decode(jsonout)
 
 local function write(writer,t)
@@ -41,9 +41,9 @@ local function write(writer,t)
     else -- table
       local ty = v[1]
       if ty == "EMPH" then
-        add(writer.emphasis(v[2]))
-      elseif ty == "STRONG" then
-        add(writer.strong(v[2]))
+        add(writer.emphasis(write(writer,v[2])))
+      elseif ty == "NOTE" then
+        add(writer.note(write(writer,v[2])))
       else -- unrecognized or not handled by writer
         add(v[2] or v[1])
       end

@@ -40,7 +40,7 @@ Sample input:
 
 Note that `prefix` and `suffix` can be either plain strings or formatting text--a JSON
 array consisting of plain strings or arrays in which the first string is a formatting
-instruction:  `EMPH`, `STRONG`, `SMALLCAPS`, `STRIKEOUT`, `SUPERSCRIPT`, `SUBSCRIPT`.
+instruction:  `EMPH`, `STRONG`, `SMALLCAPS`, `STRIKEOUT`, `SUPERSCRIPT`, `SUBSCRIPT`, `NOTE`.
 
 ## Output
 
@@ -51,8 +51,6 @@ The output is a JSON object with three fields:
 
 - `bibliography` is a JSON array consisting of a list of bibliographic items.
   Each item is a JSON array representing formatted text as described above.
-
-- `citation_type` is a string, either `in-text` or `notes`.
 
 Sample output:
 

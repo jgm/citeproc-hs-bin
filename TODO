@@ -1,7 +1,0 @@
-* Do transformations on FormattedText before converting to
-  Pandoc.
-  - insert space after author in author-in-text.
-  - add footnote in author-in-text for note styles.
-  - add footnote to json-formatted text
-  - add footnote to all citations in note styles.
-
