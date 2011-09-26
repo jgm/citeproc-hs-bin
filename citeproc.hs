@@ -101,6 +101,13 @@ consolidateInlines (Str x : Space : zs) = consolidateInlines (Str (x ++ " ") : z
 consolidateInlines (x : xs) = x : consolidateInlines xs
 consolidateInlines [] = []
 
+formatCitation :: Style -> [Cite] -> [FormattedOutput] -> [Inline]
+formatCitation sty (c:cs) (x:xs) = normalize inlines
+  where inlines = if (authorInText c) && not (null xs)
+                     then renderPandoc sty [x] ++ [Space] ++ renderPandoc sty xs
+                     else renderPandoc sty (x:xs)
+formatCitation _ _ _ = error "formatCitation: empty citation list"
+
 main :: IO ()
 main = do
   args <- getArgs
@@ -117,8 +124,9 @@ main = do
   -- for debugging:
   -- hPutStrLn stderr $ show cites'
   let bibdata = citeproc procOpts sty refs cites'
+  hPutStrLn stderr $ show bibdata
   let citeprocres = CiteprocResult {
-                          cites = map (normalize . renderPandoc sty) $ citations bibdata
+                          cites = zipWith (formatCitation sty) cites' $ citations bibdata
                         , bib   = map (normalize . renderPandoc sty) $ bibliography bibdata
                         , citationType = citationType
                         }
