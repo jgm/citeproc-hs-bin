@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" class="note" version="1.0">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="note" version="1.0" demote-non-dropping-particle="sort-only">
    <info>
       <title>Modern Humanities Research Association (Note with Bibliography)</title>
       <id>http://www.zotero.org/styles/mhra</id>
@@ -16,6 +16,7 @@
       <category field="generic-base"/>
       <category citation-format="note"/>
       <updated>2009-12-15T12:42:52+00:00</updated>
+      <rights>This work is licensed under a Creative Commons Attribution-Share Alike 3.0 License: http://creativecommons.org/licenses/by-sa/3.0/</rights>
    </info>
    <locale xml:lang="en">
       <terms>
@@ -45,10 +46,10 @@
    <macro name="title-note">
       <choose>
          <if type="bill book graphic legal_case motion_picture report song" match="any">
-            <text variable="title" font-style="italic"/>
+            <text variable="title" font-style="italic" text-case="title"/>
          </if>
          <else>
-            <text variable="title" prefix="‘" suffix="’"/>
+            <text variable="title" prefix="‘" suffix="’" text-case="title"/>
          </else>
       </choose>
    </macro>
@@ -69,7 +70,7 @@
       </group>
    </macro>
    <macro name="collection-title">
-      <text variable="collection-title"/>
+      <text variable="collection-title" text-case="title"/>
       <text variable="collection-number" prefix=", "/>
    </macro>
    <macro name="locators-note">
@@ -153,7 +154,7 @@
             <text term="in" text-case="lowercase" suffix=" "/>
          </if>
       </choose>
-      <text variable="container-title" font-style="italic"/>
+      <text variable="container-title" font-style="italic" text-case="title"/>
    </macro>
    <macro name="edition-note">
       <choose>
@@ -318,33 +319,22 @@
          </if>
          <else>
             <text variable="URL" prefix=" &lt;" suffix="&gt;"/>
-            <choose>
-              <if variable="accessed">
-                <group prefix=" [" suffix="]">
-                  <text term="accessed" text-case="lowercase"/>
-                  <date variable="accessed">
-                    <date-part name="day" prefix=" "/>
-                    <date-part name="month" prefix=" "/>
-                    <date-part name="year" prefix=" "/>
-                  </date>
-                </group>
-			  </if>
-			</choose>
+            <group prefix=" [" suffix="]">
+               <text term="accessed" text-case="lowercase"/>
+               <date variable="accessed">
+                  <date-part name="day" prefix=" "/>
+                  <date-part name="month" prefix=" "/>
+                  <date-part name="year" prefix=" "/>
+               </date>
+            </group>
          </else>
       </choose>
    </macro>
-   <citation et-al-min="4" et-al-use-first="1" et-al-subsequent-min="4" et-al-subsequent-use-first="1" disambiguate-add-names="true" disambiguate-add-givenname="true" givenname-disambiguation-rule="by-cite">
+   <citation et-al-min="4" et-al-use-first="1" et-al-subsequent-min="4" et-al-subsequent-use-first="1" disambiguate-add-names="true" disambiguate-add-givenname="true">
       <layout prefix="" suffix="." delimiter="; ">
          <choose>
             <if position="subsequent">
-               <group delimiter=", ">
-                 <text macro="contributors-short"/>
-                 <choose>
-                   <if disambiguate="true">
-                     <text variable="title" form="short"/>
-		  		   </if>
-			     </choose>
-			   </group>
+               <text macro="contributors-short"/>
                <text macro="locators-specific-note" prefix=", "/>
                <text macro="point-locators"/>
             </if>
