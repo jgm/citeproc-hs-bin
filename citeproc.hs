@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveDataTypeable, ScopedTypeVariables #-}
+{-# LANGUAGE DeriveDataTypeable, ScopedTypeVariables, PatternGuards #-}
 import Text.CSL
 import System.Environment
 import Text.JSON
