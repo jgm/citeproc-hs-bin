@@ -1,18 +1,20 @@
 Name:                citeproc
 Version:             0.1
 Synopsis:            Command-line interface to citeproc-hs
--- Description:         
+Description:         citeproc is a standalone program that uses
+                     Andrea Rossato's citeproc-hs library
+                     to generate citations and a bibliography, given
+                     a database of bibliographic references and a CSL
+                     stylesheet.  The idea is to make it possible for
+                     non-Haskell programs to use this excellent tool.
 Homepage:            https://github.com/jgm/citeproc
 License:             BSD3
 License-file:        LICENSE
 Author:              John MacFarlane
 Maintainer:          jgm@berkeley.edu
--- Copyright:           
+Copyright:           Copyright (C) 2011 John MacFarlane
 Category:            Text
 Build-type:          Simple
--- Extra files to be distributed with the package, such as examples or
--- a README.
--- Extra-source-files:  
 Cabal-version:       >=1.2
 
 Executable citeproc
