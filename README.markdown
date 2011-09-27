@@ -58,8 +58,7 @@ Sample output:
 
 ## Installing citeproc
 
-Eventually a cabal package will be provided. For now:
+Change to the source directory and:
 
-    cabal install citeproc-hs
-    ghc --make citations
+    cabal install
 
