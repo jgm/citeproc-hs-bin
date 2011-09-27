@@ -1,0 +1,20 @@
+Name:                citeproc
+Version:             0.1
+Synopsis:            Command-line interface to citeproc-hs
+-- Description:         
+Homepage:            https://github.com/jgm/citeproc
+License:             BSD3
+License-file:        LICENSE
+Author:              John MacFarlane
+Maintainer:          jgm@berkeley.edu
+-- Copyright:           
+Category:            Text
+Build-type:          Simple
+-- Extra files to be distributed with the package, such as examples or
+-- a README.
+-- Extra-source-files:  
+Cabal-version:       >=1.2
+
+Executable citeproc
+  Main-is:          citeproc.hs
+  Build-depends:    base, containers, json, citeproc-hs, pandoc-types
