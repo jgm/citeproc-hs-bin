@@ -25,7 +25,7 @@ local cites =
 }
 
 local jsoncites = json.encode(cites)
-local jsonout = pipe("./citeproc mhra.csl biblio.bib", jsoncites)
+local jsonout = pipe("citeproc mhra.csl biblio.bib", jsoncites)
 local out = json.decode(jsonout)
 
 local function write(writer,t)
